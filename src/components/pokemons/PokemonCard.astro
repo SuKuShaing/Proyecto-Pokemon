@@ -1,0 +1,27 @@
+---
+interface Props {
+	name: string;
+	url: string;
+}
+const { name, url } = Astro.props;
+
+import type { PokemonCardResponse } from "../../interfaces/pokemon-card.response.ts";
+
+const resp = await fetch(url);
+const data = (await resp.json()) as PokemonCardResponse;
+console.log("data: ", data);
+---
+
+<div
+	class="group bg-slate-700 border-2 border-slate-700 rounded-lg shadow-md p-3 hover:border-slate-100 transition-border duration-400"
+>
+	<img
+		class="transition-transform duration-400 group-hover:scale-110"
+		src={data.sprites.other?.["official-artwork"].front_default}
+		alt={name}
+		class=""
+	/>
+	<h2 class="text-center text-2xl font-semibold text-slate-200 capitalize">
+		{name}
+	</h2>
+</div>

@@ -1,20 +1,26 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
+import PokemonCard from "../components/pokemons/PokemonCard.astro";
 
 // Esto se trae el tipado de la respuesta de la API
 import type { PokemonListResponse } from "../interfaces/pokemon-list.response.ts";
 
 const resp = await fetch("https://pokeapi.co/api/v2/pokemon/");
 const data = (await resp.json()) as PokemonListResponse;
-console.log("date: ", data);
+// console.log("date: ", data);
 ---
 
 <MainLayout titulo="Pokémon Static | Home">
 	<h1 class="text-3xl text-blue-500">Listado de Pokémons</h1>
-	<hr>
-	<ul>
+	<hr />
+	<section
+		aria-label="Listado de pokémons"
+		class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4"
+	>
 		{
-			data.results.map((pokemon) => <li>{pokemon.name}</li>)
+			data.results.map((pokemon) => {
+				return <PokemonCard name={pokemon.name} url={pokemon.url} />;
+			})
 		}
-	</ul>
+	</section>
 </MainLayout>
