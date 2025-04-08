@@ -12,7 +12,8 @@ const data = (await resp.json()) as PokemonCardResponse;
 console.log("data: ", data);
 ---
 
-<div
+<a
+    href={`/pokemons/${name}`}
 	class="group bg-slate-700 border-2 border-slate-700 rounded-lg shadow-md p-3 hover:border-slate-100 transition-border duration-400"
 >
 	<img
@@ -24,4 +25,4 @@ console.log("data: ", data);
 	<h2 class="text-center text-2xl font-semibold text-slate-200 capitalize">
 		{name}
 	</h2>
-</div>
+</a>
