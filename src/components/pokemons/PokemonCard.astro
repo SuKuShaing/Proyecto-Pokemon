@@ -2,27 +2,44 @@
 interface Props {
 	name: string;
 	url: string;
+	isBig?: boolean;
 }
-const { name, url } = Astro.props;
+const { name, url, isBig = false } = Astro.props;
 
 import type { PokemonCardResponse } from "../../interfaces/pokemon-card.response.ts";
 
 const resp = await fetch(url);
 const data = (await resp.json()) as PokemonCardResponse;
-// console.log("data: ", data);
+
+const id = url.split("/").at(-2);
 ---
 
+<!-- class={`bg-slate-700 border-2 border-slate-700 rounded-lg shadow-md p-3 ${!isBig && "group hover:border-slate-100 transition-border duration-400"}`} --><!-- ${!isBig && "group hover:border-slate-100 transition-border duration-400"} deja una clase 'false' -->
 <a
-    href={`/pokemons/${name}`}
-	class="group bg-slate-700 border-2 border-slate-700 rounded-lg shadow-md p-3 hover:border-slate-100 transition-border duration-400"
+	href={`/pokemons/${name}`}
+	class:list={[
+		`bg-slate-700 border-2 border-slate-700 rounded-lg shadow-md p-3`,
+		// de esta manera al ser false, no se agrega la clase false como en la versión de arriba
+		{
+			"group hover:border-slate-100 transition-border duration-400": !isBig,
+		},
+	]}
 >
 	<img
 		class="transition-transform duration-400 group-hover:scale-110"
 		src={data.sprites.other?.["official-artwork"].front_default}
 		alt={name}
-		class=""
+		class:list={[
+			{
+				"size-100": isBig,
+			}
+		]}
 	/>
-	<h2 class="text-center text-2xl font-semibold text-slate-200 capitalize">
-		{name}
-	</h2>
+	{
+		!isBig && (
+			<h2 class="text-center text-2xl font-semibold text-slate-200 capitalize">
+				{name}
+			</h2>
+		)
+	}
 </a>
