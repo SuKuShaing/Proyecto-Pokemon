@@ -1,19 +1,48 @@
 ---
 import type { GetStaticPaths } from "astro";
 import MainLayout from "../../layouts/MainLayout.astro";
+import PokemonCard from "../../components/pokemons/PokemonCard.astro";
 
 export const getStaticPaths = (() => {
-    
-    return [
-        {params: { name: "bulbasaur" }},
-        {params: { name: "charmander" }},
-        {params: { name: "squirtle" }},
-    ];
+	return [
+		{
+			params: { name: "bulbasaur" },
+			props: { name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1" },
+		},
+		{
+			params: { name: "charmander" },
+			props: { name: "charmander", url: "https://pokeapi.co/api/v2/pokemon/4" },
+		},
+		{
+			params: { name: "squirtle" },
+			props: { name: "squirtle", url: "https://pokeapi.co/api/v2/pokemon/7" },
+		},
+	];
 }) satisfies GetStaticPaths;
 
+// Astro.params se utiliza en rutas dinámicas para acceder a los parámetros definidos en el nombre del archivo (por ejemplo, [name].astro), mientras que Astro.props se usa en componentes para recibir propiedades pasadas desde el componente padre
 const { name } = Astro.params;
+const { url } = Astro.props;
+
+
+const id = url.split("/").at(-1);
+const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`;
+// console.log("id: ", id);
 ---
 
 <MainLayout titulo=`${ name.charAt(0).toUpperCase() + name.slice(1) }`>
-    <h1 class="text-3xl capitalize">{name}</h1>
+	<section class="mt-10 mx-10 flex flex-col justify-center items-center">
+		<div>
+			<a href="/" class="hover:underline text-blue-500">Regresar</a>
+			<h1 class="text-5xl capitalize">{name}</h1>
+            <p class="text-2xl">ID: {id}</p>
+		</div>
+
+		<PokemonCard name={name} url={url} />
+
+        <audio controls class="mt-5">
+            <source src={audioSrc} type="audio/ogg" />
+            <p>Tu navegador no soporta el elemento de audio.</p>
+        </audio>
+	</section>
 </MainLayout>
