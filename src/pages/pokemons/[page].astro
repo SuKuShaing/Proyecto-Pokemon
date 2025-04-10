@@ -34,10 +34,23 @@ const { page } = Astro.props;
 	</section>
 
 	<section class="flex mt-10 gap-2 items-center">
-		<a class="btn" href={ page.url.prev }>Anteriores</a>
-		<a class="btn" href={ page.url.next } >Siguentes</a>
+		<!-- {
+			page.url.prev && (
+				<a class="btn" href={ page.url.prev }>Anteriores</a>
+				)
+		} -->
+		<a 
+			class:list={
+				page.url.prev ? "btn" : "btn disabled"
+			}
+			href={ page.url.prev }>Anteriores</a>
+		<a 
+			class:list={
+				page.url.next ? "btn" : "btn disabled"
+			}
+			href={ page.url.next } >Siguentes</a>
 		<div class="flex flex-1"></div>
-		<span>mostrando desde el { page.start + 1} al { page.end + 1 } de un total de { page.total }</span>
+		<span class="text-xl font-bold">Página { page.currentPage } - mostrando desde el { page.start + 1} al { page.end + 1 } de un total de { page.total }</span>
 	</section>
 </MainLayout>
 
@@ -49,7 +62,7 @@ const { page } = Astro.props;
 	}
 
 	.disabled {
-		@apply bg-gray-300 text-gray-500 cursor-not-allowed;
+		@apply bg-gray-300 text-gray-500 cursor-not-allowed opacity-20;
 	}
 
 
