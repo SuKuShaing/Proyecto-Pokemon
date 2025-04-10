@@ -26,6 +26,7 @@ const id = url.split("/").at(-2);
 	]}
 >
 	<img
+		transition:name={`${name}-image`}
 		class="transition-transform duration-400 group-hover:scale-110"
 		src={data.sprites.other?.["official-artwork"].front_default}
 		alt={name}
@@ -37,7 +38,8 @@ const id = url.split("/").at(-2);
 	/>
 	{
 		!isBig && (
-			<h2 class="text-center text-2xl font-semibold text-slate-200 capitalize">
+			<h2 
+				class="text-center text-2xl font-semibold text-slate-200 capitalize">
 				{name}
 			</h2>
 		)
