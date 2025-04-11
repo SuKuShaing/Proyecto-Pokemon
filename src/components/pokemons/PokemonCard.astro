@@ -15,8 +15,9 @@ const id = url.split("/").at(-2);
 ---
 
 <!-- class={`bg-slate-700 border-2 border-slate-700 rounded-lg shadow-md p-3 ${!isBig && "group hover:border-slate-100 transition-border duration-400"}`} --><!-- ${!isBig && "group hover:border-slate-100 transition-border duration-400"} deja una clase 'false' -->
+<!-- href={`/pokemon/${id}`} -->
 <a
-	href={`/pokemons/${name}`}
+href={`/pokemons/${name}`}
 	class:list={[
 		`bg-slate-700 border-2 border-slate-700 rounded-lg shadow-md p-3`,
 		// de esta manera al ser false, no se agrega la clase false como en la versión de arriba
