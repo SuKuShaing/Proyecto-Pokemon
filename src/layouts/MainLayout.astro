@@ -1,7 +1,7 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
-import { siteInfo } from "@consts/site-info"
+import { siteInfo } from "@consts/site-info";
 import type { imageConfig } from "astro:assets";
 
 interface Props {
@@ -10,8 +10,11 @@ interface Props {
 	description?: string;
 }
 
-
-const { titulo = siteInfo.title, description = siteInfo.description, image } = Astro.props;
+const {
+	titulo = siteInfo.title,
+	description = siteInfo.description,
+	image,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -19,7 +22,7 @@ const { titulo = siteInfo.title, description = siteInfo.description, image } = A
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		
+
 		<!-- SEO -->
 		<meta name="description" content={description} />
 		<meta name="author" content="Sebastián Sanhueza Tapia" />
@@ -34,10 +37,15 @@ const { titulo = siteInfo.title, description = siteInfo.description, image } = A
 		<!-- <meta property="og:image:height" content="630" /> -->
 		<meta property="og:site_name" content={siteInfo.title} />
 		<meta property="og:locale" content="es_ES" />
-		
+
 		<title>{titulo}</title>
 
 		<ClientRouter />
+		<!-- <style>
+			@view-transition {
+				navigation: auto;
+			}
+		</style> -->
 	</head>
 	<body class="bg-slate-800 text-slate-100 m-auto max-w-5xl">
 		<main class="mt-10">
