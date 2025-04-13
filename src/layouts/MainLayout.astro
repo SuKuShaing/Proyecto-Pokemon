@@ -3,6 +3,7 @@ import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 import { siteInfo } from "@consts/site-info";
 import type { imageConfig } from "astro:assets";
+import Navbar from "@/components/shared/Navbar.astro";
 
 interface Props {
 	titulo?: string;
@@ -47,8 +48,9 @@ const {
 			}
 		</style> -->
 	</head>
-	<body class="bg-slate-800 text-slate-100 m-auto max-w-5xl">
-		<main class="mt-10">
+	<body class="bg-slate-800 text-slate-100">
+		<Navbar />
+		<main class="mt-10 m-auto max-w-5xl">
 			<slot />
 		</main>
 	</body>
