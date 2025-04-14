@@ -4,6 +4,7 @@ import type { PokemonListResponse } from "@interfaces/pokemon-list.response";
 
 import MainLayout from "@layouts/MainLayout.astro";
 import PokemonCard from "@components/pokemons/PokemonCard.astro";
+import Title from "@/components/shared/Title.astro";
 
 export const getStaticPaths = (async () => {
 	const resp = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
@@ -53,11 +54,15 @@ const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pok
 >
 	<section class="mt-10 mx-10 flex flex-col justify-center items-center">
 		<div>
-			<a
+			<!-- <a
 				href="javascript:history.back()"
 				class="hover:underline text-xl text-blue-500">Regresar</a
+			> -->
+			<button
+				onclick="history.back()"
+				class="hover:underline text-xl text-blue-500">Regresar</button
 			>
-			<h1 class="text-5xl capitalize">{name}</h1>
+			<Title>{name}</Title>
 			<p class="text-2xl">ID: {id}</p>
 		</div>
 
