@@ -67,7 +67,14 @@ const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pok
 			<Title>{name}</Title>
 			<div class="flex flex-row justify-between">
 				<p class="text-2xl">ID: {id}</p>
-				<button id="btn-favorite" class="flex flex-row items-center">
+				<!-- Los data-element pueden ser creados a voluntad no tienen límites y siempre guardan un string -->
+				<!-- En el javascript debe ser recuperado un elemento dentro de data-element con metodo EtiquetaHTML.dataset.element -->
+				<button
+					id="btn-favorite"
+					class="flex flex-row items-center"
+					data-name={name}
+					data-id={id}
+				>
 					<Icon name="empty-heart" size={30} class="text-red-700" />
 					<Icon name="full-heart" size={30} class="text-red-700 hidden" />
 				</button>
@@ -83,6 +90,36 @@ const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pok
 		</audio>
 	</section>
 </MainLayout>
+
+<script>
+	// se puede colocar TypeScript en los script de astro
+	interface FavoritePokemon {
+		name: string;
+		id: number;
+	}
+
+	// Los script por defecto no se ejecutan cuando hay viewTransition
+	// Además no se comparte información entre el script que está en tiempo de compilación y el script que se ejecuta en cliente
+	// console.log(name, id)
+
+	// se añade el evento astro:page-load para que se ejecute cuando se cargue la página, dado que la viewTransition le quita el evento DOMContentLoaded
+	// y no se ejecuta el script que está en el cliente
+	// existe astro:page-load, y ocurre cuando la página se carga por completo
+	// además existe astro:before-preparation, astro:after-preparation, astro:before-swap, astro:after-swap
+	document.addEventListener("astro:page-load", () => {
+		const btnFavorite = document.getElementById(
+			"btn-favorite"
+		) as HTMLButtonElement;
+		const name = btnFavorite.dataset.name as string;
+		const id = btnFavorite.dataset.id as string;
+
+		if (!btnFavorite) return;
+
+		btnFavorite.addEventListener("click", () => {
+			console.log(name, id);
+		});
+	});
+</script>
 
 <style>
 	@import "tailwindcss";
