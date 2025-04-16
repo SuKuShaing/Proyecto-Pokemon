@@ -106,19 +106,30 @@ const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pok
 	// y no se ejecuta el script que está en el cliente
 	// existe astro:page-load, y ocurre cuando la página se carga por completo
 	// además existe astro:before-preparation, astro:after-preparation, astro:before-swap, astro:after-swap
-	document.addEventListener("astro:page-load", () => {
+
+	/*
+	document.addEventListener("astro:page-load", () => { // cuando entro a la página del Pokémon por primera vez se carga este listener al evento astro:page-load, entonces cada vez que se cargue cualquier página se ejecuta este código
+		console.log("Hola astro:page-load");
+	}, { once: true });
+	// once en true, significa que solo se ejecuta una vez y luego no se ejecuta más
+	*/
+
+	const handlePageLoad = () => {
 		const btnFavorite = document.getElementById(
 			"btn-favorite"
 		) as HTMLButtonElement;
+
+		if (!btnFavorite) return; // si no existe el botón, no se ejecuta el resto del código por lo tanto solo se ejecutará en la página de los Pokémones
+		
 		const name = btnFavorite.dataset.name as string;
 		const id = btnFavorite.dataset.id as string;
-
-		if (!btnFavorite) return;
-
+		
 		btnFavorite.addEventListener("click", () => {
 			console.log(name, id);
 		});
-	});
+	}
+	
+	document.addEventListener("astro:page-load", handlePageLoad);
 </script>
 
 <style>
