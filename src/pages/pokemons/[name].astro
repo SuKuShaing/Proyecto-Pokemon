@@ -75,8 +75,8 @@ const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pok
 					data-name={name}
 					data-id={id}
 				>
-					<Icon name="empty-heart" size={30} class="text-red-700" />
-					<Icon name="full-heart" size={30} class="text-red-700 hidden" />
+					<Icon name="empty-heart" size={30} data-empty class="text-red-700" />
+					<Icon name="full-heart" size={30} data-full class="text-red-700 hidden" />
 				</button>
 			</div>
 		</div>
@@ -115,17 +115,48 @@ const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pok
 	*/
 
 	const handlePageLoad = () => {
+		// Obtenemos los favoritos del localStorage
+		let favoritePokemons: FavoritePokemon[] = JSON.parse(
+			localStorage.getItem("favorites") ?? "[]" // si no existe el localStorage, se inicializa como un array vacío
+		)
+
+		// Obtenemos el botón de favorito
 		const btnFavorite = document.getElementById(
 			"btn-favorite"
 		) as HTMLButtonElement;
 
-		if (!btnFavorite) return; // si no existe el botón, no se ejecuta el resto del código por lo tanto solo se ejecutará en la página de los Pokémones
+		// si no existe el botón, no se ejecuta el resto del código por lo tanto solo se ejecutará en la página de los Pokémones
+		if (!btnFavorite) return;
 		
-		const name = btnFavorite.dataset.name as string;
-		const id = btnFavorite.dataset.id as string;
+		// Obtenemos el nombre y el id del Pokémon desde el botón de favorito
+		const name = btnFavorite.dataset.name ?? '' as string;
+		const id = btnFavorite.dataset.id ?? '' as string;
+
+		// Obtenemos los iconos de corazón vacío y lleno
+		const heartEmpty = btnFavorite.querySelector("[data-empty]") as HTMLElement;
+		const heartFull = btnFavorite.querySelector("[data-full]") as HTMLElement;
+
+		// Añade o quita el Pokémon de la lista de favoritos
+		const toggleFavorite = () => {
+			const isFavorite = favoritePokemons.some((fav) => fav.name === name); // verifica si el Pokémon ya está en la lista de favoritos, some devuelve true o false apenas si encuentra un elemento que cumpla la condición
+
+			if ( isFavorite ) {
+				// remover
+				favoritePokemons = favoritePokemons.filter((fav) => fav.name !== name); // retorna los pokemones que no tienen el mismo nombre que el que se está eliminando
+			} else {
+				// agregar
+				favoritePokemons.push({ name, id: Number(id) });
+			}
+
+			localStorage.setItem("favorites", JSON.stringify(favoritePokemons));
+		}
 		
+		// Cambia el estado del corazón al cargar al hacer click y ejecuta la función que usa el localStorage
 		btnFavorite.addEventListener("click", () => {
-			console.log(name, id);
+			heartEmpty.classList.toggle("hidden");
+			heartFull.classList.toggle("hidden");
+
+			toggleFavorite();
 		});
 	}
 	
