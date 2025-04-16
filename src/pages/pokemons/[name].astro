@@ -136,6 +136,13 @@ const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pok
 		const heartEmpty = btnFavorite.querySelector("[data-empty]") as HTMLElement;
 		const heartFull = btnFavorite.querySelector("[data-full]") as HTMLElement;
 
+		// Sí el pokémon ya está en la lista de favoritos, se muestra el corazón lleno y se oculta el vacío
+		const isInFavorite = favoritePokemons.some((fav) => fav.name === name);
+		if (isInFavorite) {
+			heartEmpty.classList.toggle("hidden");
+			heartFull.classList.toggle("hidden");
+		}
+
 		// Añade o quita el Pokémon de la lista de favoritos
 		const toggleFavorite = () => {
 			const isFavorite = favoritePokemons.some((fav) => fav.name === name); // verifica si el Pokémon ya está en la lista de favoritos, some devuelve true o false apenas si encuentra un elemento que cumpla la condición
