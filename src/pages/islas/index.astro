@@ -27,8 +27,22 @@ const counterValue = 20; // puede haber venido de cualquier parte este valor
 
 	<Counter
 		transition:persist="counter"
+		transition:persist-props
 		client:visible
 		initValue={counterValue}
 	/>
 	<!-- initValue={counterValue} se le pueden pasar props al componente interactivo -->
+	<!--
+		transition:persist persiste el estado del componente entre navegaciones, deben colocarle nombre en ambos lados para que funcione
+		transition:persist-props además de persistir el estado, no permite que reciba la props que esta nueva página le está pasando
+	-->
+	<hr>
+	<Counter
+		transition:persist="counter"
+		transition:persist-props
+		client:visible
+		initValue={counterValue}
+	>
+		<Title>Counter Island!!</Title>
+	</Counter>
 </MainLayout>
