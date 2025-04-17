@@ -2,10 +2,19 @@
 import { Counter } from "@/components/Counter";
 import Title from "@/components/shared/Title.astro";
 import MainLayout from "@/layouts/MainLayout.astro";
+
+const counterValue = 20; // puede haber venido de cualquier parte este valor
 ---
 
 <MainLayout titulo="Favoritos" description="Lista de favoritos">
 	<Title>Islas </Title>
+
+	<video controls muted autoplay transition:persist="playing-video">
+		<source
+			src="https://ia804502.us.archive.org/33/items/GoldenGa1939_3/GoldenGa1939_3_512kb.mp4"
+			type="video/mp4"
+		/>
+	</video>
 
 	<div
 		style={{
@@ -16,5 +25,10 @@ import MainLayout from "@/layouts/MainLayout.astro";
 	>
 	</div>
 
-	<Counter client:load />
+	<Counter
+		transition:persist="counter"
+		client:visible
+		initValue={counterValue}
+	/>
+	<!-- initValue={counterValue} se le pueden pasar props al componente interactivo -->
 </MainLayout>
