@@ -92,11 +92,12 @@ const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pok
 </MainLayout>
 
 <script>
+	import type { FavoritePokemon } from "@interfaces/favorite-pokemon.response";
 	// se puede colocar TypeScript en los script de astro
-	interface FavoritePokemon {
-		name: string;
-		id: number;
-	}
+	// interface FavoritePokemon {
+	// 	name: string;
+	// 	id: number;
+	// }
 
 	// Los script por defecto no se ejecutan cuando hay viewTransition
 	// Además no se comparte información entre el script que está en tiempo de compilación y el script que se ejecuta en cliente
