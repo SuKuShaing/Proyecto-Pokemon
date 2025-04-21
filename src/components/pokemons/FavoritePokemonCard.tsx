@@ -31,7 +31,9 @@ export const FavoritePokemonCard: Component<Props> = ({ pokemon }) => {
                     class="bg-slate-700 border-2 border-slate-700 rounded-lg shadow-md p-3 group hover:border-slate-100 transition-border duration-400"
                     >
                     <img
-                        // transition:name={`${pokemon.name}-image`}
+                        // transition:name={`${pokemon.name}-image`} -> esto es sugar syntax de astro
+                        // las view transitions son del navegador, no de solid, pero podemos colocarlo en el style
+                        style={`view-transition-name: ${pokemon.name}-image;`}
                         class="transition-transform duration-400 group-hover:scale-110"
                         src={imageSrc}
                         alt={pokemon.name}
