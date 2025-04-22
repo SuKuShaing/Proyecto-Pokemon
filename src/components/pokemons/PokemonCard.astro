@@ -29,6 +29,7 @@ href={`/pokemons/${name}`}
 	<img
 		transition:name={`${name}-image`}
 		class="transition-transform duration-400 group-hover:scale-110"
+		class="w-full h-auto object-contain transition-transform duration-400 group-hover:scale-110"
 		src={data.sprites.other?.["official-artwork"].front_default}
 		alt={name}
 		class:list={[
